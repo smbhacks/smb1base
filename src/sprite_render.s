@@ -1136,10 +1136,15 @@ Noop:
 
 .proc ProcessPiranhaPlant
   ldx ObjectOffset
+  lda #$20
+  sta Enemy_SprAttrib,x
+  lda TimerControl
+  bne DontAnimate
   lda PiranhaPlant_Y_Speed,x
   bmi DrawPiranha     ;if piranha plant moving upwards, branch
   lda EnemyFrameTimer,x
   beq DrawPiranha     ;if timer for movement expired, branch
+DontAnimate:
   rts
 DrawPiranha:
   ldy #METASPRITE_PIRANHA_MOUTH_OPEN
